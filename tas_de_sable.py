@@ -7,6 +7,19 @@
 # https://github.com/Settha-Ph/projet_tas_de_sable.git
 #########################################
 
+################
+# Description de ce qui a été fait et ce qui reste à faire
+"""Fait : 
+- Initialise le tableau (pas la canvas)
+- algorithme qui étale les grains de sable
+- affichage de la grille
+- fonction d'affichage des grains dans le canvas
+
+A faire :
+- clean et simplifier si possible
+"""
+
+
 ###########
 # IMPORT DES LIBRAIRIES
 
@@ -36,28 +49,80 @@ for i in range(5):
             a = rd.randint(0,9)
         liste_2.append(a)
     liste_TDS.append(liste_2)
-    print(liste_2)
+    #print(liste_2)
     liste_2=[]
 
 
 ##########
 # DEFINITION DES FONCTIONS
 
-def fct():
-    pass
+def fct_ecoulement():
+    """modifie les case du tableau en fonction du nombre"""
+    a = 0
+    for i in range(len(liste_TDS)):
+        for j in range(len(liste_TDS)):
+            if liste_TDS[i][j] != "" and liste_TDS[i][j] != "#" and liste_TDS[i][j]>=4:
+                liste_TDS[i][j]-=4
+                for k in range(-1,1):
+                    for l in range(-1,1):
+                        if liste_TDS[i+k][j+l] != "" and liste_TDS[i+k][j+l] != "#":
+                            liste_TDS[i+k][j+l] += 1
+    fct_print_tbls()
+    fct_affichage_grain()
+
+def fct_print_tbls():
+    """print le tableau"""
+    for i in range (5):
+        print(liste_TDS[i])
+
+def fct_affichage_grain():
+    "créé les carrés qui représantes les grains de sables dans la grille du canvas"
+    for i in range(5) :
+        for j in range(5) :
+            couleur = "light grey"
+            if liste_TDS[i][j] == 0:
+                couleur = "red"
+            elif liste_TDS[i][j] == 1:
+                couleur = "orange"
+            elif liste_TDS[i][j] == 2:
+                couleur = "yellow"
+            elif liste_TDS[i][j] == 3:
+                couleur = "green"
+            elif liste_TDS[i][j] == 4:
+                couleur = "cyan"
+            elif liste_TDS[i][j] == 5:
+                couleur = "blue"
+            elif liste_TDS[i][j] == 6:
+                couleur = "purple"
+            elif liste_TDS[i][j] == 7:
+                couleur = "pink"
+            elif liste_TDS[i][j] == 8:
+                couleur = "brown"
+            elif liste_TDS[i][j] == 9:
+                couleur = "black"
+            canvas.create_rectangle((j-1)*100, (i-1)*100, (j)*100, (i)*100, fill = couleur)
 
 ##########
 # MAIN
 
-"""racine = tk.Tk()
+fct_print_tbls()
 
-canvas = tk.Canvas(racine, width = 500, height = 500, bg = "white")
+racine = tk.Tk()
+
+canvas = tk.Canvas(racine, width = 300, height = 300, bg = "white")
 canvas.grid(row = 1, column = 1)
 
-boutton = tk.Button(racine, command = fct, text="configuration courante")
+boutton = tk.Button(racine, command = fct_ecoulement, text="configuration courante")
 boutton.grid(row = 2, column = 1)
 
+##################
+# Affichage de la grille
 
-#canvas.create_text(250,250, text="yo")
+for i in range (3) :
+    canvas.create_line((100*i, 0), (100*i, 300), fill="black")
+    canvas.create_line((0, 100*i), (300, 100*i), fill="black")
 
-racine.mainloop()"""
+fct_affichage_grain()
+
+racine.mainloop()
+

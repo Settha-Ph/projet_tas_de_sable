@@ -59,6 +59,7 @@ for i in range(5):
 def fct_ecoulement():
     """modifie les case du tableau en fonction du nombre"""
     a = 0
+    isChange = False
     for i in range(len(liste_TDS)):
         for j in range(len(liste_TDS)):
             if liste_TDS[i][j] != "" and liste_TDS[i][j] != "#" and liste_TDS[i][j]>=4:
@@ -67,8 +68,12 @@ def fct_ecoulement():
                     for l in range(-1,1):
                         if liste_TDS[i+k][j+l] != "" and liste_TDS[i+k][j+l] != "#":
                             liste_TDS[i+k][j+l] += 1
+                isChange = True
+
     fct_print_tbls()
     fct_affichage_grain()
+
+    return isChange
 
 def Update():
     if fct_ecoulement():

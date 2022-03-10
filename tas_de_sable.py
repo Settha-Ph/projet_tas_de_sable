@@ -70,6 +70,10 @@ def fct_ecoulement():
     fct_print_tbls()
     fct_affichage_grain()
 
+def Update():
+    if fct_ecoulement():
+        racine.after(300, Update)
+
 def fct_print_tbls():
     """print le tableau"""
     for i in range (5):
@@ -112,7 +116,7 @@ racine = tk.Tk()
 canvas = tk.Canvas(racine, width = 300, height = 300, bg = "white")
 canvas.grid(row = 1, column = 1)
 
-boutton = tk.Button(racine, command = fct_ecoulement, text="configuration courante")
+boutton = tk.Button(racine, command = Update, text="configuration courante")
 boutton.grid(row = 2, column = 1)
 
 ##################
